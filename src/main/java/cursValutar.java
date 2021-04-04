@@ -8,14 +8,12 @@ import java.net.URL;
 
 public class cursValutar {
 
-    private static Document getPage() throws IOException {
-        String url = "https://www.curs.md/ru/curs_valutar/oficial";
-        Document page = Jsoup.parse(new URL(url), 3000);
-        return page;
+    public static Document getPage(String url) throws IOException {
+        return Jsoup.parse(new URL(url), 6000);
     }
 
     public static void main(String[] args) throws IOException {
-        Document page = getPage();
+        Document page = getPage("https://www.curs.md/ru/curs_valutar/oficial");
         String date = page.select("input[type=date]").text();
         System.out.println("Курс валют на " + date);
         Element table = page.select("table[id=tabelValute]").first();
