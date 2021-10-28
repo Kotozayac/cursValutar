@@ -8,7 +8,7 @@ public class compModDelete extends compensationModule {
         delete();
     }
 
-    public static void delete() throws Exception {
+    private static void delete() throws Exception {
         navigateToCompMod();
         Thread.sleep(5000);
         List<WebElement> el = driver.findElements(By.xpath("//div[@class='con-vs-tooltip ml-2']/button"));

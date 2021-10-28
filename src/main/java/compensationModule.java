@@ -26,6 +26,7 @@ public class compensationModule {
         Thread.sleep(5000);
         WebElement compMod = driver.findElement(By.xpath("//span[contains(text(),'Compensation')]"));
         action.moveToElement(compMod).click().build().perform();
+        Thread.sleep(5000);
     }
 
     public static String[] credentials() throws Exception {
