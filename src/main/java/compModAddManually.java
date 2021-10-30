@@ -1,3 +1,4 @@
+import org.asynchttpclient.util.Assertions;
 import org.openqa.selenium.By;
 
 import java.math.BigDecimal;
@@ -33,15 +34,15 @@ public class compModAddManually extends compensationModule {
             System.out.println(e);
         }
         try {
-            driver.findElement(By.xpath("//h3[text()='Add KZS']/ancestor::div[@class='vs-popup']//span[contains((@class),'cell day weekend') and text()='31']")).click();
+            driver.findElement(By.xpath("(//h3[text()='Add KZS']/ancestor::div[@class='vs-popup']//span[contains((@class),'cell day weekend') and text()='31'])[2]")).click();
         } catch (Exception e) {
             System.out.println(e);
         }
         Thread.sleep(2000);
         driver.findElement(By.xpath("//input[@aria-autocomplete='list']")).sendKeys("Agen");
-        Thread.sleep(5000);
-        String medName = driver.findElement(By.id("vs3__option-0")).getText();
-        driver.findElement(By.id("vs3__option-0")).click();
+        Thread.sleep(8000);
+        String medName = driver.findElement(By.xpath("//li[@id='vs1__option-1']")).getText();
+        driver.findElement(By.xpath("//li[@id='vs1__option-1']")).click();
         Thread.sleep(2000);
         driver.findElement(By.xpath("//h3[text()='Add KZS']/ancestor::div[@class='vs-popup']//span[text()='Medication indicator']/..//input")).click();
         Thread.sleep(2000);
@@ -53,10 +54,21 @@ public class compModAddManually extends compensationModule {
         Thread.sleep(5000);
 
 
-        double val75 = 1.75*0.75;
+        double val75 = 1.76*0.75;
         double val1 = roundVal(val75);
         String value1 = Double.toString(val1);
-        double val50 = 1.75*0.5;
+        System.out.println("75% compensation: " + value1);
+        double val50 = 1.76*0.5;
+        double val2 = roundVal(val50);
+        String value2 = Double.toString(val2);
+        System.out.println("50% compensation: " + value2);
+        String comp75 = driver.findElement(By.xpath("//span[contains(text(),' CEFZIL ÕHUK. POLÜM.KAT. TBL 250MG N10 ')]/../following::td[2]//span[contains(text(),'75%')]/following::span[1]")).getText().replace("€","");
+        if (value1.equals(comp75)) {
+            System.out.println("Expected value: " + value1 + "\nActual value: " + comp75);
+        } else {
+            System.out.println("Values does not match!\nExpected value: " + value1 + "\nActual value: " + comp75);
+            throw new Exception();
+        }
     }
 
     private static double roundVal(double value) {
